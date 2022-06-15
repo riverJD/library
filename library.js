@@ -46,12 +46,6 @@ function showDisplayPrompt(){
 
 }
 
-// Create a modal pop-up for user to add books to a library
-
-
-// Display library in a grid
-
-
 
 //////// Test books /////
 const Fellowship = new Book("Fellowship of the Ring", "J.R.R. Tolkien", 423, "fiction", false);
@@ -68,11 +62,8 @@ function displayLibrary(){
 
     let myLibrary = document.querySelector('#booklist');
     
-
-    
     for (let book in library){
-        
-        
+    
         // Create a book element for library
         const story = document.createElement("li");
         setAttributes(story, {"class": `book`, "id": `book${book}`, "data-library-index": `${book}`});
@@ -84,10 +75,12 @@ function displayLibrary(){
         addAttributeToBook(library[book].type, 'p', story)
         addAttributeToBook(library[book].hasRead, 'div', story)
   
+        // Add a button to remove book from library
         const removeBtn = document.createElement("input");
-        setAttributes(removeBtn, {"type": "image", "src": "./img/icons/delete.svg", "alt": "Remove book",  "class": `remove-button`, "id": `remove-book${book}`});
-        
-       
+        setAttributes(removeBtn, {"type": "image", "src": "./img/icons/delete.svg", "alt": "Remove book",  "class": `remove-button`, "id": `remove-book${book}`});  
+        removeBtn.addEventListener('click', () => {
+            removeBookFromLibrary(button.parentNode.getAttribute("data-library-index"))
+        })
         story.appendChild(removeBtn);
         myLibrary.appendChild(story);
     }
@@ -95,11 +88,11 @@ function displayLibrary(){
 }
 
 displayLibrary();
-removeBookFromLibrary(Dune);
+
 
 const removeBook = document.querySelectorAll(".remove-button");
 removeBook.forEach(button => {
-    console.log(button);
+    
     button.addEventListener('click', () => {
         console.log('click')
         removeBookFromLibrary(button.parentNode.getAttribute("data-library-index"))
@@ -107,15 +100,42 @@ removeBook.forEach(button => {
 
 });
 
-const addBook = document.querySelector("#add-book");
-    addBook.addEventListener("click", () => {
-        console.log(addBookDisplay)
+const addBookPopUp = document.querySelector("#add-book");
+    addBookPopUp.addEventListener("click", () => {
+
         addBookDisplay.style.display = "block";
 
     });
 
+const addBook = document.querySelector('form');
+console.log(addBook);
 
-// Helper functions
+
+addBook.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const formData = new FormData(addBook);
+    const title = formData.get('book_title')
+    const author = formData.get('author_name')
+    const type = formData.get('book_type')
+    const pages = formData.get('page_count')
+    const read = formData.get('has_read')
+    
+    addBookToLibrary(new Book(title, author, pages, type, read));
+    clearLibrary();
+    displayLibrary();
+
+});
+    
+let testVar = ""
+function submitBook(){
+   
+ 
+    
+    
+}
+
+
+    // Helper functions
 
 // Add an element to target DOM (in this case a book attribute);
 function addAttributeToBook(attributeType, targetElement, book){
