@@ -75,7 +75,47 @@ ul{
 }
 
 .form-container{
+    margin-top: 10%;
+    padding: 10%;
     display: grid;
+    font-size: max(20px, 1rem);
+    justify-items: flex-end;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(4, 2fr) 1fr 1fr;
+}
+
+.form-label{
+    grid-column: 1 / -1;
+    margin-right: 25%;
+}
+
+.form-container input{
+    width: 15rem;
+    margin-left: 10px;
+    font-size: 18px;
+}
+
+
+ #has_read,#page_count{
+    width: 3rem;
+
+}
+
+
+#page-label{
+    grid-column: 1 / 2;
+    grid-row: 4 / 5;
+}
+
+#read-label{
+    grid-column: 2 / 3 ;
+    justify-self: flex-start;
+}
+
+#submit-book{
+
+    grid-column: 1 / -1;
+    justify-self: center;
 }
 
 .form-element{
