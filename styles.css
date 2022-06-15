@@ -15,3 +15,69 @@ a, a:visited, a:active{
     font-style: italic;
     color:rgb(146, 145, 145);
 }
+
+
+body{
+    background-color: var(--main-bg-color, white);
+}
+
+#booklist{
+    display: grid;
+}
+
+ul{
+    background-color: antiquewhite;
+}
+
+.books{
+    background-color: #647431;
+}
+
+
+.book{
+    display: flex;
+    flex-direction: column;
+    background-color: var(--card-bg-color);
+    border: 5px solid var(--card-border-color, black);
+    border-radius: 5px;
+    box-shadow: 5px 5px 8px 1px grey;
+}
+
+.book > *{
+    outline: 1px dotted red;
+}
+
+
+.hasread{
+    background-color: #647431;
+}
+
+.remove-button{
+    height: auto;
+    width: 2rem;
+    align-self: flex-end;
+}
+
+#add-book-modal{
+    display: none;
+    position: fixed; 
+    z-index: 1;
+
+    left: 25%;
+
+    width: max(33%, 600px);
+    height: max(50%, 600px);
+
+    overflow: auto;
+    border: 4px dotted red;
+    background-color: #68a3c6cb;
+
+}
+
+.form-container{
+    display: grid;
+}
+
+.form-element{
+    outline: 1px dashed green;
+}
