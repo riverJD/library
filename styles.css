@@ -1,0 +1,17 @@
+:root{
+
+    --main-bg-color: rgb(216, 216, 216);
+    --header-bg-color: rgb(238, 235, 230);
+    --dashboard-bg-color: rgb(51, 111, 151);
+    --card-border-color: #68a4c6;
+    --card-bg-color: rgb(238, 235, 230);
+    --button-bg-color: #68a4c6;
+    --alt-card-bg-color: #647431;
+    
+}
+
+a, a:visited, a:active{
+    text-decoration: none;
+    font-style: italic;
+    color:rgb(146, 145, 145);
+}
