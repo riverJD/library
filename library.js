@@ -79,7 +79,7 @@ function displayLibrary(){
         const removeBtn = document.createElement("input");
         setAttributes(removeBtn, {"type": "image", "src": "./img/icons/delete.svg", "alt": "Remove book",  "class": `remove-button`, "id": `remove-book${book}`});  
         removeBtn.addEventListener('click', () => {
-            removeBookFromLibrary(button.parentNode.getAttribute("data-library-index"))
+            removeBookFromLibrary(removeBtn.parentNode.getAttribute("data-library-index"))
         })
         story.appendChild(removeBtn);
         myLibrary.appendChild(story);
@@ -89,16 +89,6 @@ function displayLibrary(){
 
 displayLibrary();
 
-
-const removeBook = document.querySelectorAll(".remove-button");
-removeBook.forEach(button => {
-    
-    button.addEventListener('click', () => {
-        console.log('click')
-        removeBookFromLibrary(button.parentNode.getAttribute("data-library-index"))
-    });
-
-});
 
 const addBookPopUp = document.querySelector("#add-book");
     addBookPopUp.addEventListener("click", () => {
@@ -121,6 +111,7 @@ addBook.addEventListener('submit', (e) => {
     const read = formData.get('has_read')
     
     addBookToLibrary(new Book(title, author, pages, type, read));
+    addBook.reset();
     clearLibrary();
     displayLibrary();
 
