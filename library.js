@@ -84,13 +84,13 @@ function displayLibrary(){
         story.appendChild(type);
 
         // Create container for 'Read' and 'Delete' buttons.
-        const bookButtons = document.createElement('div');
+        const bookButtons = addAttributeToBook('Read?', 'div')
         setAttributes(bookButtons, {'class': `book-buttons }`})
        
 
-        const hasRead = addAttributeToBook("", 'input');
+        const hasRead = document.createElement('input');
         setAttributes(hasRead, {'type': 'button', 'class': `read-button ${(library[book].hasRead) && 'hasread'}`})
-        
+        hasRead.addEventListener('click', () => setBookReadStatus(hasRead, !library[book].hasRead))
         bookButtons.appendChild(hasRead);
   
         // Add a button to remove book from library
@@ -108,7 +108,22 @@ function displayLibrary(){
 
 }
 
+
+function setBookReadStatus(button, haveRead){
+    console.log(haveRead, 'book');
+
+    const index = getParentWith(button, 'book').getAttribute('data-library-index')
+
+    library[index].hasRead = haveRead;
+    haveRead ? button.classList.add('hasread') : button.classList.remove('hasread');
+    console.log(library[index].hasRead)
+}
+
+
+
+
 displayLibrary();
+
 
 
 const addBookPopUp = document.querySelector("#add-book");
@@ -122,6 +137,7 @@ const addBook = document.querySelector('form');
 console.log(addBook);
 
 
+// Create book from user input
 addBook.addEventListener('submit', (e) => {
     e.preventDefault();
     const formData = new FormData(addBook);
@@ -135,19 +151,17 @@ addBook.addEventListener('submit', (e) => {
     addBook.reset();
     clearLibrary();
     displayLibrary();
-
 });
     
-let testVar = ""
-function submitBook(){
-   
- 
-    
-    
-}
 
 
-    // Helper functions
+
+
+
+
+
+
+// Helper functions
 
 // Add an element to target DOM (in this case a book attribute);
 function addAttributeToBook(attributeType, targetElement, book){
@@ -165,4 +179,22 @@ function setAttributes(element, attributes)
     Object.entries(attributes).forEach(([key, value]) => {
         element.setAttribute(key, value)
     });
+}
+
+// Search through parents for a specific element and return the node
+// with that class
+function getParentWith(node, nodeClass){
+    console.log(nodeClass);
+    console.log(node.className);
+    // return if class not found in document
+    if (node.parentNode.tagName == 'HTML'){
+        console.warn("No DOM with that class")
+        return;
+    }
+    
+    if (node.parentNode.className == nodeClass) {
+        return(node.parentNode);
+    }
+    return(getParentWith(node.parentNode, nodeClass));
+
 }

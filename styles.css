@@ -64,43 +64,59 @@ ul{
     border-bottom: 1px dashed var(--card-border-color, black);
 }
 
-.book > div {
+.book div {
     display: flex;
     font-size: 14px;
     font-weight: bold;
 }
 
 .book > div > *{
+    flex: 0 1 auto;
     font-size: 18px;
     font-weight:300;
 }
 
-.book-buttons{
-    display: flex;
+.book .book-buttons{
+    display: grid;
     grid-row: -1 / -2;
-    justify-content: space-between;
+    grid-template-columns:  1fr 1fr;
+    grid-template-rows: 1fr 1fr;
     align-items: flex-end;
     border: none;
 }
 
 
 .read-button{
+    grid-area: -2 / 1 / -1 / 2;
     background-color: var(--book-unread-color);
     width: 4rem;
     height: 2rem;
     border: 2px solid var(--card-border-color, brown)
 }
 
+.read-button:hover{
+    filter:brightness(1.2);
+}
+
+.read-button:active,
+{
+    border: 2px inset var(--card-border-color, brown);
+}
+
+
 .hasread{
     background-color: #647431;
+    
 }
 
 
 
 .remove-button{
+    margin-left: auto;
     height: auto;
     width: 2rem;
     grid-row: -2 / -1;
+    
 
 }
 
