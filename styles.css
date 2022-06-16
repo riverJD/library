@@ -40,7 +40,7 @@ header{
     background-color: var(--card-bg-color, grey);
     border-bottom: 10px solid var(--alt-card-border-color, brown);
     height: min(100px, 30vh);
-    min-height: 30px;
+    min-height: 50px;
 }
 
 header h1{
@@ -63,22 +63,55 @@ header img{
  
 }
 
+table, th, td{
+    padding: 0 5px;
+    text-align: left;
+    border: 1px solid black;
+
+}
+
+table{
+    outline: 1px dotted blue;
+    font-size: clamp(.66rem, 14px, 1rem);
+}
+
+th
+
+td{
+    text-align: right;
+}
+
+
 #booklist{
+    width: 80%;
     display: grid;
+    justify-content: center;
     gap: 2rem;
     padding: 5%;
     grid-template-columns: repeat(auto-fill, min(250px, 100vw));
     grid-auto-rows: 400px;
+    /* border: 5px dashed rgb(199, 188, 188);*/
 }
 
 ul{
     list-style: none;
 }
 
-.books{
-  border: 5px dashed rgb(199, 188, 188);
-  
+.library{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+
+
+#add-book{
+    margin-top: 5%;
+    padding: 5px;
+    font-size: clamp(1rem, 24px, 2rem);
+    border-radius: 5px;
+}
+
+
 
 /* Card for holding book info */ 
 .book{
@@ -162,6 +195,7 @@ ul{
     
 
 }
+
 
 
 /* Container for modals, help with centering */ 

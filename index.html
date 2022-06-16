@@ -14,8 +14,37 @@
         <img src="./img/icons/bookshelf.svg" alt="">
         <h1 id="header-title">Library</h1>
         <div class="header-right-side">
-        <div class="subheader"><div class="stats"><h5>Pages read:</h5></div>
-        </div>    </div>
+        
+            
+                <table id="">
+                    <thead>
+                        <tr>
+                        <th scope="col">Total Books</th>
+                        <th scope="col">Books Read</th>
+                        <th scope="col">Total Pages</th>
+                        <th scope="col">Pages Read</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope='row'>Test</th>
+                            <td>5</td>
+                            <td>3</td>
+                            <td>910</td>
+ 
+                        </tr>
+                        <tr></tr>
+
+
+
+
+                    </tbody>
+                </table>
+            
+            
+            
+            
+          </div>
         
         </header>
 
@@ -26,7 +55,7 @@
             <form class="form-container" id="add-book-form" action="">
                 <label for="book_title" class="form-label">Book Title:<input type="text" class="form-element" name="book_title" id="book_title" placeholder="Dune" required></label>
                 <label for="author_name" class="form-label">Author:<input type="text" class="form-element" name="author_name" id="author_name" placeholder="Frank Herbert" required></label>
-                <label for="book_type" class="form-label">Type:<input type="text" class="form-element" name="book_type" id="book_type" placeholder="Fiction" required></label>                <label for="page_count" class="form-label" id="page-label">Pages:<input type="number" class="form-element" name="page_count" id="page_count" placeholder="412" required></label>
+                <label for="book_type" class="form-label">Genre:<input type="text" class="form-element" name="book_type" id="book_type" placeholder="Fiction" required></label>                <label for="page_count" class="form-label" id="page-label">Pages:<input type="number" class="form-element" name="page_count" id="page_count" placeholder="412" required></label>
                 <label for="has_read" class="form-label" id="read-label">Read?<input type="checkbox" class="form-element" name="has_read" id="has_read"></label>
                 <input type="submit" id="submit-book" value="Add book to library">
 
@@ -40,11 +69,12 @@
 
      </div>
      <div class="library">
+        <div class="toolbar"><button id="add-book">+ Add to Library</button></div>
+
          <ul class="books" id="booklist">
 
         </ul>
 
-        <div class="toolbar"><button id="add-book">+ Add to Library</button></div>
     </div>
     
         

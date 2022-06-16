@@ -61,11 +61,11 @@ function showDisplayPrompt(){
 
 
 //////// Test books /////
-const Fellowship = new Book("Fellowship of the Ring", "J.R.R. Tolkien", 423, "fiction", false);
+const Fellowship = new Book("Fellowship of the Ring", "J.R.R. Tolkien", 423, "Fantasy", false);
 
-const Dune = new Book("Dune", "Frank Herbert", 412, "fiction", true);
+const Dune = new Book("Dune", "Frank Herbert", 412, "Science-fiction", true);
 
-const OryxCrake = new Book("Oryx and Crake", "Margaret Atwood", 400, "fiction", true);
+const OryxCrake = new Book("Oryx and Crake", "Margaret Atwood", 400, "Science-fiction", true);
 
 addBookToLibrary(Dune);
 addBookToLibrary(OryxCrake);
@@ -92,7 +92,7 @@ function displayLibrary(){
         pages.appendChild(addAttributeToBook(library[book].pages, 'p'))
         story.appendChild(pages);
 
-        const type = addAttributeToBook("Type: ", 'div');
+        const type = addAttributeToBook("Genre: ", 'div');
         type.appendChild(addAttributeToBook(library[book].type, 'p'));
         story.appendChild(type);
 
@@ -110,7 +110,7 @@ function displayLibrary(){
         const removeBtn = document.createElement("input");
         setAttributes(removeBtn, {"type": "image", "src": "./img/icons/delete.svg", "alt": "Remove book",  "class": `remove-button`, "id": `remove-book${book}`});  
         removeBtn.addEventListener('click', () => {
-            removeBookFromLibrary(removeBtn.parentNode.getAttribute("data-library-index"))
+            removeBookFromLibrary(getParentWithClass(removeBtn, 'book').getAttribute("data-library-index"))
         })
         bookButtons.appendChild(removeBtn);
 
