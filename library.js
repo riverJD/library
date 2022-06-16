@@ -69,11 +69,29 @@ function displayLibrary(){
         setAttributes(story, {"class": `book`, "id": `book${book}`, "data-library-index": `${book}`});
         
         // Attach attributes
-        addAttributeToBook(library[book].title, 'h3', story)
-        addAttributeToBook(library[book].author, 'p', story)
-        addAttributeToBook(library[book].pages, 'p', story)
-        addAttributeToBook(library[book].type, 'p', story)
-        addAttributeToBook(library[book].hasRead, 'div', story)
+        story.appendChild(addAttributeToBook(library[book].title, 'h3'));
+        
+        const author = addAttributeToBook("Author: ", 'div');
+        author.appendChild(addAttributeToBook(library[book].author, 'p'));
+        story.appendChild(author);
+        
+        const pages = addAttributeToBook("Pages: ", 'div')
+        pages.appendChild(addAttributeToBook(library[book].pages, 'p'))
+        story.appendChild(pages);
+
+        const type = addAttributeToBook("Type: ", 'div');
+        type.appendChild(addAttributeToBook(library[book].type, 'p'));
+        story.appendChild(type);
+
+        // Create container for 'Read' and 'Delete' buttons.
+        const bookButtons = document.createElement('div');
+        setAttributes(bookButtons, {'class': `book-buttons }`})
+       
+
+        const hasRead = addAttributeToBook("", 'input');
+        setAttributes(hasRead, {'type': 'button', 'class': `read-button ${(library[book].hasRead) && 'hasread'}`})
+        
+        bookButtons.appendChild(hasRead);
   
         // Add a button to remove book from library
         const removeBtn = document.createElement("input");
@@ -81,7 +99,10 @@ function displayLibrary(){
         removeBtn.addEventListener('click', () => {
             removeBookFromLibrary(removeBtn.parentNode.getAttribute("data-library-index"))
         })
-        story.appendChild(removeBtn);
+        bookButtons.appendChild(removeBtn);
+
+        story.appendChild(bookButtons)
+
         myLibrary.appendChild(story);
     }
 
@@ -132,8 +153,9 @@ function submitBook(){
 function addAttributeToBook(attributeType, targetElement, book){
     
     const attribute = document.createElement(`${targetElement}`);
-    attribute.textContent = attributeType;
-    book.appendChild(attribute);
+    attribute.textContent = attributeType;  
+    // Allow nesting if desired
+    return attribute;
 
 }
 

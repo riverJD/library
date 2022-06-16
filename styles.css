@@ -1,13 +1,14 @@
 :root{
 
-    --main-bg-color: rgb(216, 216, 216);
+    --main-bg-color: rgb(238, 235, 230);
     --header-bg-color: rgb(238, 235, 230);
     --dashboard-bg-color: rgb(51, 111, 151);
-    --card-border-color: #68a4c6;
-    --card-bg-color: rgb(238, 235, 230);
+    --card-border-color:   #6d5733 ;
+    --card-bg-color: rgb(233,233,233);
     --button-bg-color: #68a4c6;
-    --alt-card-bg-color: #647431;
-    
+    --alt-card-bg-color: rgb(238, 235, 230);
+    --book-unread-color: rgb(160, 155, 148);
+    font-family: Helvetica, sans-serif;
 }
 
 a, a:visited, a:active{
@@ -21,42 +22,88 @@ body{
     background-color: var(--main-bg-color, white);
 }
 
+
+
 #booklist{
     display: grid;
+    gap: 2rem;
+    padding: 10%;
+    grid-template-columns: repeat(auto-fill, minmax(min(14rem, 100%), 1fr));
 }
 
 ul{
-    background-color: antiquewhite;
+    list-style: none;
 }
 
 .books{
-    background-color: #647431;
+  border: 5px dashed rgb(199, 188, 188);
 }
 
-
+/* Card for holding book info */ 
 .book{
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    padding: 10%;
     background-color: var(--card-bg-color);
-    border: 5px solid var(--card-border-color, black);
+    border: 1px solid var(--card-border-color, black);
+    border-right: 3px double var(--card-border-color, black);
     border-radius: 5px;
     box-shadow: 5px 5px 8px 1px grey;
+
+
 }
+
+/* book elements */ 
+
+
+
 
 .book > *{
-    outline: 1px dotted red;
+    margin-bottom: 2px;
+    margin-top: 5px;
+    border-bottom: 1px dashed var(--card-border-color, black);
 }
 
+.book > div {
+    display: flex;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.book > div > *{
+    font-size: 18px;
+    font-weight:300;
+}
+
+.book-buttons{
+    display: flex;
+    grid-row: -1 / -2;
+    justify-content: space-between;
+    align-items: flex-end;
+    border: none;
+}
+
+
+.read-button{
+    background-color: var(--book-unread-color);
+    width: 4rem;
+    height: 2rem;
+    border: 2px solid var(--card-border-color, brown)
+}
 
 .hasread{
     background-color: #647431;
 }
 
+
+
 .remove-button{
     height: auto;
     width: 2rem;
-    align-self: flex-end;
+    grid-row: -2 / -1;
+
 }
+
 
 #add-book-modal{
     display: none;
