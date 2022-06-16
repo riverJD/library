@@ -2,8 +2,8 @@
 // Create a library of books
 
 
-const addBookDisplay = document.querySelector('#add-book-modal');
-
+const addBookDisplay = document.querySelector('#book-modal-container');
+const myLibrary = document.querySelector('#booklist');
 let library = [];
 
 let stats = {
@@ -12,8 +12,8 @@ let stats = {
     totalBooks: 0,
     booksRead: 0,
     favAuthor: 'none',
-}
 
+}
 
 // Create constructor for book
 
@@ -28,6 +28,10 @@ function Book(title, author, pages, type, hasRead) {
 }
 
 function addBookToLibrary(book){
+    stats.totalBooks += 1;
+    stats.totalPages += book.pages;
+    
+
 
     library.push(book);
 }
@@ -45,7 +49,7 @@ function removeBookFromLibrary(index){
 }
 
 function clearLibrary(){
-    const myLibrary = document.querySelector('#booklist');
+    
     while (myLibrary.firstChild) {
         myLibrary.removeChild(myLibrary.lastChild);
     }
@@ -121,7 +125,7 @@ function displayLibrary(){
 function setBookReadStatus(button, haveRead){
     console.log(haveRead, 'book');
 
-    const index = getParentWith(button, 'book').getAttribute('data-library-index')
+    const index = getParentWithClass(button, 'book').getAttribute('data-library-index')
 
     library[index].hasRead = haveRead;
     haveRead ? button.classList.add('hasread') : button.classList.remove('hasread');
@@ -129,22 +133,28 @@ function setBookReadStatus(button, haveRead){
 }
 
 
-
-
 displayLibrary();
 
+
+
+const closeAddModal = document.querySelector('#exit-form');
+closeAddModal.addEventListener('click', () => {
+    console.log('close modal')
+    addBookDisplay.style.display = 'none';
+    myLibrary.style.opacity = "1.0";
+
+})
 
 
 const addBookPopUp = document.querySelector("#add-book");
     addBookPopUp.addEventListener("click", () => {
 
-        addBookDisplay.style.display = "block";
-
+        addBookDisplay.style.display = "flex";
+        myLibrary.style.opacity = ".25";
     });
 
 const addBook = document.querySelector('form');
 console.log(addBook);
-
 
 // Create book from user input
 addBook.addEventListener('submit', (e) => {
@@ -162,12 +172,6 @@ addBook.addEventListener('submit', (e) => {
     displayLibrary();
 });
     
-
-
-
-
-
-
 
 
 // Helper functions
@@ -192,18 +196,19 @@ function setAttributes(element, attributes)
 
 // Search through parents for a specific element and return the node
 // with that class
-function getParentWith(node, nodeClass){
-    console.log(nodeClass);
-    console.log(node.className);
-    // return if class not found in document
-    if (node.parentNode.tagName == 'HTML'){
+function getParentWithClass(node, nodeClass){
+
+    // Return if class not found in document
+    if (node.tagName == 'HTML'){
         console.warn("No DOM with that class")
         return;
     }
     
+    // return 
     if (node.parentNode.className == nodeClass) {
         return(node.parentNode);
     }
-    return(getParentWith(node.parentNode, nodeClass));
+
+    return(getParentWithClass(node.parentNode, nodeClass));
 
 }

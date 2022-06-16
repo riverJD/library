@@ -5,12 +5,15 @@
     --main-bg-color: rgb(238, 235, 230);
     --header-bg-color: rgb(238, 235, 230);
     --dashboard-bg-color: rgb(51, 111, 151);
-    --card-border-color:   #6d5733 ;
+    --card-border-color:   #6d573396 ;
     --alt-card-border-color:#47371e;
     --card-bg-color: rgb(233,233,233);
     --button-bg-color: #68a4c6;
     --alt-card-bg-color: rgb(238, 235, 230);
     --book-unread-color: rgb(160, 155, 148);
+    --book-read-color: #647431;
+
+
     font-family: Helvetica, sans-serif;
 }
 
@@ -74,6 +77,7 @@ ul{
 
 .books{
   border: 5px dashed rgb(199, 188, 188);
+  
 }
 
 /* Card for holding book info */ 
@@ -87,6 +91,7 @@ ul{
     border-right: 3px double var(--card-border-color, black);
     border-radius: 5px;
     box-shadow: 5px 5px 8px 1px grey;
+    
  
 
 
@@ -143,7 +148,7 @@ ul{
 
 
 .hasread{
-    background-color: #647431;
+    background-color:var(--book-read-color, #647431);
     
 }
 
@@ -159,27 +164,47 @@ ul{
 }
 
 
+/* Container for modals, help with centering */ 
+#book-modal-container{
+   margin-top: 20vh;
+   align-self: center;
+   display: none;
+   justify-content: center;
+  
+   position: fixed;
+   z-index: 1;
+   width: min(100vw, 380px);
+   height: min(100vh, 500px);
+    background-color: rgba(184, 135, 11, 0.082);
+}
+
 #add-book-modal{
-    display: none;
-    position: fixed; 
-    z-index: 1;
+    display: flex;
+    
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+    
+    width: min(100vw, 340px);
+    height: min(100vh, 480px);
 
-    left: 25%;
-
-    width: max(33%, 500px);
-    height: max(50%, 500px);
+ 
 
     overflow: auto;
-    border: 4px dotted red;
-    background-color: #68a3c6cb;
+    border: 2px dashed var(--alt-card-border-color);
+    background-color: var(--card-border-color, #647431);
 
 }
 
 .add-book-content{
+
+    width: min(100vh, 300px);
+    height:  min(100vh, 450px);
+
     display: flex;
     flex-direction: column;
+    background-color: var(--card-bg-color)
 }
-
 
 .form-container{
     margin-top: 10%;
@@ -235,3 +260,4 @@ ul{
     width: 2rem;
     align-self: flex-end;
 }
+/*```````````````````````````````````*/
