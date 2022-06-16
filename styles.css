@@ -1,9 +1,12 @@
 :root{
 
+     
+    
     --main-bg-color: rgb(238, 235, 230);
     --header-bg-color: rgb(238, 235, 230);
     --dashboard-bg-color: rgb(51, 111, 151);
     --card-border-color:   #6d5733 ;
+    --alt-card-border-color:#47371e;
     --card-bg-color: rgb(233,233,233);
     --button-bg-color: #68a4c6;
     --alt-card-bg-color: rgb(238, 235, 230);
@@ -19,16 +22,50 @@ a, a:visited, a:active{
 
 
 body{
+    display: flex;
+    flex-direction: column;
+    margin: 0;
     background-color: var(--main-bg-color, white);
 }
 
+header{
+    
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    padding-left: 10%;
+    background-color: var(--card-bg-color, grey);
+    border-bottom: 10px solid var(--alt-card-border-color, brown);
+    height: min(100px, 30vh);
+    min-height: 30px;
+}
 
+header h1{
+    margin-right: auto;
+    font-size: clamp(1vw, 48px, 5vw);
+    
+}
+
+header img{
+    height: auto;
+    width: 100px;
+    width: clamp(1vw, 60px, 5vw);
+}
+
+.subheader{
+    justify-self: flex-end;
+    display: flex;
+    flex: 1;
+    outline: 1px red dotted;
+ 
+}
 
 #booklist{
     display: grid;
     gap: 2rem;
-    padding: 10%;
-    grid-template-columns: repeat(auto-fill, minmax(min(14rem, 100%), 1fr));
+    padding: 5%;
+    grid-template-columns: repeat(auto-fill, min(250px, 100vw));
+    grid-auto-rows: 400px;
 }
 
 ul{
@@ -41,6 +78,7 @@ ul{
 
 /* Card for holding book info */ 
 .book{
+    flex: 0 1 auto;
     display: grid;
     grid-template-rows: repeat(6, 1fr);
     padding: 10%;
@@ -49,6 +87,7 @@ ul{
     border-right: 3px double var(--card-border-color, black);
     border-radius: 5px;
     box-shadow: 5px 5px 8px 1px grey;
+ 
 
 
 }
@@ -91,15 +130,14 @@ ul{
     background-color: var(--book-unread-color);
     width: 4rem;
     height: 2rem;
-    border: 2px solid var(--card-border-color, brown)
+    border: 2px solid var(--card-border-color, brown);
 }
 
 .read-button:hover{
     filter:brightness(1.2);
 }
 
-.read-button:active,
-{
+.read-button:active{
     border: 2px inset var(--card-border-color, brown);
 }
 

@@ -6,6 +6,15 @@ const addBookDisplay = document.querySelector('#add-book-modal');
 
 let library = [];
 
+let stats = {
+    totalPages: 0,
+    pagesRead: 0,
+    totalBooks: 0,
+    booksRead: 0,
+    favAuthor: 'none',
+}
+
+
 // Create constructor for book
 
 function Book(title, author, pages, type, hasRead) {
