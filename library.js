@@ -152,8 +152,8 @@ function displayBook(libraryIndex)
         const deleteTitleText = document.querySelector('#book-to-delete')
         
         const index = story.getAttribute('data-library-index');
-
-  
+        deleteTitleText.textContent = library[index].title;
+        
         deleteScreen.currentBook = story;
         
         
@@ -202,6 +202,8 @@ let deleteScreen = {
         
         this.currentBook.remove();
         removeBookFromLibrary(this.currentBook.getAttribute('data-library-index'));
+        clearLibrary();
+        displayLibrary();
     }
 }
 
