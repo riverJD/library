@@ -4,6 +4,9 @@
 
 const addBookDisplay = document.querySelector('#book-modal-container');
 const myLibrary = document.querySelector('#booklist');
+const deleteConfirmScreen = document.querySelector('#delete-book-modal');
+
+
 let library = [];
 
 let stats = {
@@ -13,6 +16,7 @@ let stats = {
     booksRead: 0,
     favAuthor: 'none',
 
+    
 }
 
 // Create constructor for book
@@ -44,8 +48,9 @@ function getBookIndexFromLibrary(book){
 
 function removeBookFromLibrary(index){
     library.splice(index, 1)
-    clearLibrary();
-    displayLibrary();
+       
+    // clearLibrary();
+    //displayLibrary();
 }
 
 function clearLibrary(){
@@ -53,6 +58,7 @@ function clearLibrary(){
     while (myLibrary.firstChild) {
         myLibrary.removeChild(myLibrary.lastChild);
     }
+    
 }
 
 function showDisplayPrompt(){
@@ -110,7 +116,10 @@ function displayLibrary(){
         const removeBtn = document.createElement("input");
         setAttributes(removeBtn, {"type": "image", "src": "./img/icons/delete.svg", "alt": "Remove book",  "class": `remove-button`, "id": `remove-book${book}`});  
         removeBtn.addEventListener('click', () => {
-            removeBookFromLibrary(getParentWithClass(removeBtn, 'book').getAttribute("data-library-index"))
+            deleteConfirmScreen.style.display = "flex";
+            deleteScreen.currentBook = story;
+            console.log("click delete")
+            //removeBookFromLibrary(getParentWithClass(removeBtn, 'book').getAttribute("data-library-index"))
         })
         bookButtons.appendChild(removeBtn);
 
@@ -118,6 +127,14 @@ function displayLibrary(){
 
         myLibrary.appendChild(story);
     }
+
+}
+
+function displayBook(story)
+{
+    let index = library.length;
+
+    
 
 }
 
@@ -135,14 +152,32 @@ function setBookReadStatus(button, haveRead){
 
 displayLibrary();
 
+/* function openDeleteScreen(book){
+    function confirmDelete(book){
+        console.log(book);
+    }
 
 
-const closeAddModal = document.querySelector('#exit-form');
-closeAddModal.addEventListener('click', () => {
-    console.log('close modal')
-    addBookDisplay.style.display = 'none';
-    myLibrary.style.opacity = "1.0";
+}
+*/
 
+
+let deleteScreen = {
+    
+    currentBook: 'none',
+    
+    deleteBook(){
+       
+        console.log(this.currentBook);
+        this.currentBook.remove();
+        removeBookFromLibrary(this.currentBook.getAttribute('data-library-index'));
+    }
+}
+
+const confirmDeleteBook= document.querySelector('#confirm-delete');
+confirmDeleteBook.addEventListener('click', () => {
+    deleteConfirmScreen.style.display = 'none';
+    deleteScreen.deleteBook();
 })
 
 
@@ -152,6 +187,19 @@ const addBookPopUp = document.querySelector("#add-book");
         addBookDisplay.style.display = "flex";
         myLibrary.style.opacity = ".25";
     });
+
+const closeDeleteModal = document.querySelector('#cancel-delete');
+closeDeleteModal.addEventListener('click', () => deleteConfirmScreen.style.display = "none");
+
+
+const closeAddModal = document.querySelector('#exit-form');
+closeAddModal.addEventListener('click', () => {
+    addBookDisplay.style.display = 'none';
+    myLibrary.style.opacity = "1.0";
+
+})
+
+
 
 const addBook = document.querySelector('form');
 console.log(addBook);

@@ -246,7 +246,7 @@ ul{
     justify-content: center;
 
 
-    display: flex;
+    display: none;
     position: fixed;
 
     width: min(100vw, 350px);
@@ -259,12 +259,33 @@ ul{
 #delete-book-modal #delete-modal-content{
     background-color: var(--main-bg-color, white);
     padding: 10px; 
-    border: 5px solid var(--alt-card-border-color,red);
+    border: 5px solid var(--alt-card-border-color,rgb(184, 18, 18));
     border-radius: 5px;
     width: 80%;
 }
 
-.
+#delete-modal-content{
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+#cancel-delete{
+    height: auto;
+    width: 3rem;
+    grid-area: 2 / 1 / 3 / 2;
+}
+
+#confirm-delete{
+    height: auto;
+    width: 3rem;
+    grid-area: 2 / 2 / 3 / 3;
+    justify-self:flex-end;
+}
+
+
 
 .form-container{
     margin-top: 10%;
