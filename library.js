@@ -35,8 +35,6 @@ function addBookToLibrary(book){
     stats.totalBooks += 1;
     stats.totalPages += book.pages;
     
-
-
     library.push(book);
 }
 
@@ -58,6 +56,7 @@ function clearLibrary(){
     while (myLibrary.firstChild) {
         myLibrary.removeChild(myLibrary.lastChild);
     }
+    library = [];
     
 }
 
@@ -77,65 +76,68 @@ addBookToLibrary(Dune);
 addBookToLibrary(OryxCrake);
 addBookToLibrary(Fellowship);
 
+
+// Display entire library, useful after clearing library or on page load
 function displayLibrary(){
 
     let myLibrary = document.querySelector('#booklist');
     
     for (let book in library){
     
-        // Create a book element for library
-        const story = document.createElement("li");
-        setAttributes(story, {"class": `book`, "id": `book${book}`, "data-library-index": `${book}`});
-        
-        // Attach attributes
-        story.appendChild(addAttributeToBook(library[book].title, 'h3'));
-        
-        const author = addAttributeToBook("Author: ", 'div');
-        author.appendChild(addAttributeToBook(library[book].author, 'p'));
-        story.appendChild(author);
-        
-        const pages = addAttributeToBook("Pages: ", 'div')
-        pages.appendChild(addAttributeToBook(library[book].pages, 'p'))
-        story.appendChild(pages);
-
-        const type = addAttributeToBook("Genre: ", 'div');
-        type.appendChild(addAttributeToBook(library[book].type, 'p'));
-        story.appendChild(type);
-
-        // Create container for 'Read' and 'Delete' buttons.
-        const bookButtons = addAttributeToBook('Read?', 'div')
-        setAttributes(bookButtons, {'class': `book-buttons }`})
-       
-
-        const hasRead = document.createElement('input');
-        setAttributes(hasRead, {'type': 'button', 'class': `read-button ${(library[book].hasRead) && 'hasread'}`})
-        hasRead.addEventListener('click', () => setBookReadStatus(hasRead, !library[book].hasRead))
-        bookButtons.appendChild(hasRead);
-  
-        // Add a button to remove book from library
-        const removeBtn = document.createElement("input");
-        setAttributes(removeBtn, {"type": "image", "src": "./img/icons/delete.svg", "alt": "Remove book",  "class": `remove-button`, "id": `remove-book${book}`});  
-        removeBtn.addEventListener('click', () => {
-            deleteConfirmScreen.style.display = "flex";
-            deleteScreen.currentBook = story;
-            console.log("click delete")
-            //removeBookFromLibrary(getParentWithClass(removeBtn, 'book').getAttribute("data-library-index"))
-        })
-        bookButtons.appendChild(removeBtn);
-
-        story.appendChild(bookButtons)
-
-        myLibrary.appendChild(story);
+        displayBook(book);
     }
 
 }
 
-function displayBook(story)
+// Display book at newest library array index
+function displayBook(libraryIndex)
 {
-    let index = library.length;
-
+    libraryIndex == null ? book = (library.length - 1) : book = libraryIndex;
     
+    console.log("Book at index is " + library[book].title);
 
+    const story = document.createElement("li");
+    setAttributes(story, {"class": `book`, "id": `book${book}`, "data-library-index": `${book}`});
+    
+    // Attach attributes
+    story.appendChild(addAttributeToBook(library[book].title, 'h3'));
+    
+    const author = addAttributeToBook("Author: ", 'div');
+    author.appendChild(addAttributeToBook(library[book].author, 'p'));
+    story.appendChild(author);
+    
+    const pages = addAttributeToBook("Pages: ", 'div')
+    pages.appendChild(addAttributeToBook(library[book].pages, 'p'))
+    story.appendChild(pages);
+
+    const type = addAttributeToBook("Genre: ", 'div');
+    type.appendChild(addAttributeToBook(library[book].type, 'p'));
+    story.appendChild(type);
+
+    // Create container for 'Read' and 'Delete' buttons.
+    const bookButtons = addAttributeToBook('Read?', 'div')
+    setAttributes(bookButtons, {'class': `book-buttons }`})
+   
+
+    const hasRead = document.createElement('input');
+    setAttributes(hasRead, {'type': 'button', 'class': `read-button ${(library[book].hasRead) && 'hasread'}`})
+    hasRead.addEventListener('click', () => setBookReadStatus(hasRead, !library[book].hasRead))
+    bookButtons.appendChild(hasRead);
+
+    // Add a button to remove book from library
+    const removeBtn = document.createElement("input");
+    setAttributes(removeBtn, {"type": "image", "src": "./img/icons/delete.svg", "alt": "Remove book",  "class": `remove-button`, "id": `remove-book${book}`});  
+    removeBtn.addEventListener('click', () => {
+        deleteConfirmScreen.style.display = "flex";
+        deleteScreen.currentBook = story;
+        console.log("click delete")
+        //removeBookFromLibrary(getParentWithClass(removeBtn, 'book').getAttribute("data-library-index"))
+    })
+    bookButtons.appendChild(removeBtn);
+
+    story.appendChild(bookButtons);
+
+    myLibrary.appendChild(story);
 }
 
 
@@ -199,6 +201,14 @@ closeAddModal.addEventListener('click', () => {
 
 })
 
+const resetButtonPrompt = document.querySelector('#reset-library');
+resetButton.addEventListener('click', () => {
+    clearLibrary();
+
+})
+
+const resetButtonConfirm = document.querySelector('#reset-confirm');
+
 
 
 const addBook = document.querySelector('form');
@@ -216,8 +226,8 @@ addBook.addEventListener('submit', (e) => {
     
     addBookToLibrary(new Book(title, author, pages, type, read));
     addBook.reset();
-    clearLibrary();
-    displayLibrary();
+    console.log("library index: " + library.length)
+    displayBook();
 });
     
 
