@@ -27,6 +27,7 @@ a, a:visited, a:active{
 body{
     display: flex;
     height: 100vh;
+    width: 100vw;
     flex-direction: column;
     justify-content: space-between;
     margin: 0;
@@ -41,8 +42,18 @@ header{
     padding-left: 10%;
     background-color: var(--card-bg-color, grey);
     border-bottom: 10px solid var(--alt-card-border-color, brown);
-    height: min(100px, 30vh);
+    height: min(120px, 30vh);
     min-height: 50px;
+
+    
+}
+
+#header-right-side{
+    margin-right: 20px;
+    margin-left: 10px;
+    display: flex;
+    gap: 10px;
+    overflow: auto;
 }
 
 header h1{
@@ -65,22 +76,35 @@ header img{
  
 }
 
-table, th, td{
+table, td{
     padding: 0 5px;
-    text-align: left;
-    border: 1px solid black;
+    text-align: right;
+
 
 }
 
 table{
-    outline: 1px dotted blue;
+    
+    padding: 5px;
     font-size: clamp(.66rem, 14px, 1rem);
 }
 
-th
+th{
+    text-align: right;
+    padding-right: 10px;
+    border-right: 1px dotted rgba(128, 128, 128, 0.479);
+    
+}
 
 td{
+    padding-right: 10px;
     text-align: right;
+    font-style: italic;
+    border-right: 1px dotted rgba(128, 128, 128, 0.479);
+}
+
+#fav-genre, #fav-author{
+    width: 8em;
 }
 
 

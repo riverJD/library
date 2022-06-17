@@ -15,11 +15,31 @@ let stats = {
     pagesRead: 0,
     totalBooks: 0,
     booksRead: 0,
+    authors: [],
     favAuthor: 'none',
 
     refresh: function(){
-        console.log("it worked");
+        console.log(this.authors);
+       
+        let statsBooks = document.querySelector('#stats-books');
+        let statsBooksRead = document.querySelector('#stats-books-read');
+        let statsPages = document.querySelector('#stats-pages');
+        let statsPagesRead = document.querySelector('#stats-pages-read');
+
+        statsBooks.textContent = this.totalBooks;
+        statsBooksRead.textContent = this.booksRead;
+        statsPages.textContent = this.totalPages;
+        statsPagesRead.textContent = this.pagesRead;
+    },
+
+    favAuthor: function(){
+        let tmp = [];
+        
+        
+
     }
+
+
 }
 
 // Create constructor for book
@@ -27,7 +47,7 @@ let stats = {
 function Book(title, author, pages, type, hasRead) {
     this.title = title;
     this.author = author;
-    this.pages = pages;
+    this.pages = parseInt(pages);
     this.type = type;
     this.hasRead = hasRead;
 
@@ -35,9 +55,17 @@ function Book(title, author, pages, type, hasRead) {
 }
 
 function addBookToLibrary(book){
+    
+    // Tracking for stats display
     stats.totalBooks += 1;
-    stats.totalPages += parseInt(book.pages);
-    console.log(stats.totalBooks + " " + stats.totalPages);
+    stats.totalPages += book.pages;
+    if (book.hasRead){
+        stats.pagesRead += book.pages;
+        stats.booksRead += 1;
+    } 
+    stats.authors.push(book.author);
+    stats.refresh();
+
     library.push(book);
 }
 
@@ -48,17 +76,20 @@ function getBookIndexFromLibrary(book){
 
 
 function removeBookFromLibrary(index){
-    //stats.totalBooks -= 1;
-    //stats.totalPages -= parseInt(library[index].pages);
-   // stats.refresh();
-    //stats.pages -= parseInt(library[index].pages);   
-   // console.log(stats.totalBooks + " " + stats.totalPages);
- 
     
+    // Tracking for stats display
+    stats.totalBooks -= 1;
+    stats.totalPages -= parseInt(library[index].pages);
+    if (library[index].hasRead){
+        stats.pagesRead -= parseInt(library[index].pages);
+        stats.booksRead -= 1;
+    } 
+    stats.authors.splice(`'${library[index].pages}'`, 1)
+    stats.refresh(); 
+    
+    // Remove book from library array (DOMs already removed)
     library.splice(index, 1)
-       
-    // clearLibrary();
-    //displayLibrary();
+
 }
 
 function clearLibrary(){
@@ -166,20 +197,32 @@ function displayBook(libraryIndex)
     myLibrary.appendChild(story);
 }
 
-
+// Toggles book readd status for card and stats
 function setBookReadStatus(button, haveRead){
-    console.log(library);
-
+    
     const index = getParentWithClass(button, 'book').getAttribute('data-library-index')
-    console.log('index is ' + index);
     library[index].hasRead = haveRead;
-    console.log('in library: ' + index + library[index].hasRead);
-    haveRead ? button.classList.add('hasread') : button.classList.remove('hasread');
-    console.log(library[index].hasRead)
+   
+    if (haveRead){
+        console.log('have read')
+        button.classList.add('hasread')
+        stats.booksRead += 1;
+        stats.pagesRead += library[index].pages;
+     }
+     else{
+         console.log('havent read')
+         button.classList.remove('hasread');
+         stats.booksRead -= 1;
+         stats.pagesRead -= library[index].pages;
+    
+        }
+    stats.refresh();
+
 }
 
 
 displayLibrary();
+stats.refresh();
 
 /* function openDeleteScreen(book){
     function confirmDelete(book){
