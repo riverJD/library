@@ -240,6 +240,32 @@ ul{
     background-color: var(--card-bg-color)
 }
 
+#delete-book-modal{
+
+    justify-self: center;
+    justify-content: center;
+
+
+    display: flex;
+    position: fixed;
+
+    width: min(100vw, 350px);
+    height: min(100vh, 150px);
+
+
+   
+}
+
+#delete-book-modal #delete-modal-content{
+    background-color: var(--main-bg-color, white);
+    padding: 10px; 
+    border: 5px solid var(--alt-card-border-color,red);
+    border-radius: 5px;
+    width: 80%;
+}
+
+.
+
 .form-container{
     margin-top: 10%;
     padding: 10%;
