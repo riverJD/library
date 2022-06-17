@@ -26,7 +26,9 @@ a, a:visited, a:active{
 
 body{
     display: flex;
+    height: 100vh;
     flex-direction: column;
+    justify-content: space-between;
     margin: 0;
     background-color: var(--main-bg-color, white);
 }
@@ -122,6 +124,7 @@ ul{
     background-color: var(--card-bg-color);
     border: 1px solid var(--card-border-color, black);
     border-right: 3px double var(--card-border-color, black);
+    border-left: 20px solid var(--alt-card-border-color);
     border-radius: 5px;
     box-shadow: 5px 5px 8px 1px grey;
     
@@ -210,6 +213,7 @@ ul{
    width: min(100vw, 380px);
    height: min(100vh, 500px);
     background-color: rgba(184, 135, 11, 0.082);
+    
 }
 
 #add-book-modal{
@@ -226,6 +230,8 @@ ul{
 
     overflow: auto;
     border: 2px dashed var(--alt-card-border-color);
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px;
     background-color: var(--card-border-color, #647431);
 
 }
@@ -249,14 +255,13 @@ ul{
     display: none;
     position: fixed;
 
-    width: min(100vw, 350px);
+    width: min(100vw, 300px);
     height: min(100vh, 150px);
-
-
-   
+       
 }
 
-#delete-book-modal #delete-modal-content, #reset-library-modal, #reset-modal-content{
+
+#delete-book-modal #delete-modal-content, #reset-modal-content{
     background-color: var(--main-bg-color, white);
     padding: 10px; 
     border: 5px solid var(--alt-card-border-color,rgb(184, 18, 18));
@@ -270,8 +275,12 @@ ul{
     width: 100%;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
+    box-shadow: 2px 2px 5px;
 }
 
+#delete-modal-content > *{
+    grid-column: 1 / -1;
+}
 #reset-modal-content h2{
     grid-column: 1 / -1;
     text-align: center;
@@ -347,3 +356,14 @@ ul{
     align-self: flex-end;
 }
 /*```````````````````````````````````*/
+footer{
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: auto;
+
+}
+
+#reset-library{
+    font-size: 1rem;
+}

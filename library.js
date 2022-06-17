@@ -17,7 +17,9 @@ let stats = {
     booksRead: 0,
     favAuthor: 'none',
 
-    
+    refresh: function(){
+        console.log("it worked");
+    }
 }
 
 // Create constructor for book
@@ -34,8 +36,8 @@ function Book(title, author, pages, type, hasRead) {
 
 function addBookToLibrary(book){
     stats.totalBooks += 1;
-    stats.totalPages += book.pages;
-    
+    stats.totalPages += parseInt(book.pages);
+    console.log(stats.totalBooks + " " + stats.totalPages);
     library.push(book);
 }
 
@@ -46,6 +48,13 @@ function getBookIndexFromLibrary(book){
 
 
 function removeBookFromLibrary(index){
+    //stats.totalBooks -= 1;
+    //stats.totalPages -= parseInt(library[index].pages);
+   // stats.refresh();
+    //stats.pages -= parseInt(library[index].pages);   
+   // console.log(stats.totalBooks + " " + stats.totalPages);
+ 
+    
     library.splice(index, 1)
        
     // clearLibrary();
@@ -64,17 +73,14 @@ function clearLibrary(){
     
 }
 
-function showDisplayPrompt(){
-
-}
 
 
 //////// Test books /////
 const Fellowship = new Book("Fellowship of the Ring", "J.R.R. Tolkien", 423, "Fantasy", false);
 
-const Dune = new Book("Dune", "Frank Herbert", 412, "Science-fiction", false);
+const Dune = new Book("Dune", "Frank Herbert", 412, "Sci-fi", false);
 
-const OryxCrake = new Book("Oryx and Crake", "Margaret Atwood", 400, "Science-fiction", true);
+const OryxCrake = new Book("Oryx and Crake", "Margaret Atwood", 400, "Sci-fi", true);
 
 addBookToLibrary(Dune);
 addBookToLibrary(OryxCrake);
@@ -142,8 +148,15 @@ function displayBook(libraryIndex)
     setAttributes(removeBtn, {"type": "image", "src": "./img/icons/delete.svg", "alt": "Remove book",  "class": `remove-button`, "id": `remove-book${book}`});  
     removeBtn.addEventListener('click', () => {
         deleteConfirmScreen.style.display = "flex";
+
+        const deleteTitleText = document.querySelector('#book-to-delete')
+        
+        const index = story.getAttribute('data-library-index');
+
+  
         deleteScreen.currentBook = story;
-        console.log("click delete")
+        
+        
         //removeBookFromLibrary(getParentWithClass(removeBtn, 'book').getAttribute("data-library-index"))
     })
     bookButtons.appendChild(removeBtn);
@@ -184,7 +197,9 @@ let deleteScreen = {
     
     deleteBook(){
        
+
         console.log("deleting.. " + this.currentBook);
+        
         this.currentBook.remove();
         removeBookFromLibrary(this.currentBook.getAttribute('data-library-index'));
     }
