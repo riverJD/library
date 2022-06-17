@@ -74,7 +74,7 @@ const Fellowship = new Book("Fellowship of the Ring", "J.R.R. Tolkien", 423, "Fa
 
 const Dune = new Book("Dune", "Frank Herbert", 412, "Science-fiction", false);
 
-const OryxCrake = new Book("Oryx and Crake", "Margaret Atwood", 400, "Science-fiction", true);
+const OryxCrake = new Book("Oryx and Crake", "Margaret Atwood", 400, "Science-fiction", false);
 
 addBookToLibrary(Dune);
 addBookToLibrary(OryxCrake);
@@ -128,12 +128,12 @@ function displayBook(libraryIndex)
    
 
     const hasRead = document.createElement('input');
-    
+
     //adds headread class to book button if
     setAttributes(hasRead, {'type': 'button', 'class': `read-button ${(library[book].hasRead) && 'hasread'}`})
     hasRead.addEventListener('click', () => {
-        const bookIndex = getParentWithClass(hasRead, 'book').getAttribute('data-library-index')
-        setBookReadStatus(hasRead, !library[bookIndex].hasRead)
+        console.log("set status to: " + library[book].hasRead)
+        setBookReadStatus(hasRead, !library[book].hasRead)
     });
     bookButtons.appendChild(hasRead);
 
@@ -155,7 +155,7 @@ function displayBook(libraryIndex)
 
 
 function setBookReadStatus(button, haveRead){
-    console.log(library);
+    console.log(haveRead, 'book');
 
     const index = getParentWithClass(button, 'book').getAttribute('data-library-index')
     console.log('index is ' + index);
@@ -223,13 +223,7 @@ resetButtonPrompt.addEventListener('click', () => { resetConfirmScreen.style.dis
 const resetButtonConfirm = document.querySelector('#confirm-reset');
 resetButtonConfirm.addEventListener('click',() => clearLibrary());
 
-const resetButtonCancel = document.querySelector('#cancel-reset');
-resetButtonCancel.addEventListener('click', () => resetConfirmScreen.style.display = "none");
-
-
 const addBook = document.querySelector('form');
-
-
 
 // Create book from user input
 addBook.addEventListener('submit', (e) => {
@@ -246,7 +240,12 @@ addBook.addEventListener('submit', (e) => {
     addBook.reset();
     
     // need to subtract one from length for proper index
-    displayBook(library.length - 1);
+    
+    clearLibrary();
+    displayLibrary();
+    
+    
+    //displayBook(library.length - 1);
 });
     
 
