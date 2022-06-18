@@ -44,6 +44,7 @@ header{
     border-bottom: 10px solid var(--alt-card-border-color, brown);
     height: min(120px, 30vh);
     min-height: 50px;
+    box-shadow: 2px 2px 4px 1px grey;
 
     
 }
@@ -158,10 +159,6 @@ ul{
 }
 
 /* book elements */ 
-
-
-
-
 .book > *{
     margin-bottom: 2px;
     margin-top: 5px;
@@ -211,8 +208,6 @@ ul{
     background-color:var(--book-read-color, #647431);
     
 }
-
-
 
 .remove-button{
     margin-left: auto;
@@ -381,13 +376,29 @@ ul{
 }
 /*```````````````````````````````````*/
 footer{
+    color: var(--card-bg-color, white);
+    background-color: var(--alt-card-border-color, brown);
     padding: 10px;
     display: flex;
-    justify-content: flex-end;
     margin-top: auto;
 
 }
 
 #reset-library{
+    border-radius: 5px;
+    background-color: var(--book-unread-color, grey);
     font-size: 1rem;
+    margin-left: auto;
+}
+
+#signature{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+
+#signature img{
+    height: auto;
+    width: 1.5rem;
 }
