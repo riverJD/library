@@ -1,3 +1,55 @@
+
+class Library{
+
+    
+
+    // Methods
+
+    addBookToLibrary = (book) => {
+    
+        // Update stats
+        stats.totalBooks += 1;
+        stats.totalPages += book.pages;
+        if (book.hasRead){
+            stats.pagesRead += book.pages;
+            stats.booksRead += 1;
+        } 
+        stats.addAuthor(book.author);
+        stats.refresh();
+    
+    
+        library.push(book);
+    }
+    
+
+    removeBookFromLibrary = (index) => {
+    
+        // Update stats
+        stats.totalBooks -= 1;
+        stats.totalPages -= parseInt(library[index].pages);
+        if (library[index].hasRead){
+            stats.pagesRead -= parseInt(library[index].pages);
+            stats.booksRead -= 1;
+        } 
+        stats.authors.splice(`'${library[index].pages}'`, 1)
+        stats.refresh(); 
+        
+        // Remove book from library array
+        library.splice(index, 1)
+    }
+
+    clearLibrary = () => {
+    
+        resetConfirmScreen.style.display = 'none';
+        const bookstoDelete = document.querySelectorAll('.book');
+        bookstoDelete.forEach(book => book.remove());
+        
+    }
+
+
+}
+
+
 // References for repeated use
 const addBookDisplay = document.querySelector('#book-modal-container');
 const myLibrary = document.querySelector('#booklist');
@@ -8,16 +60,18 @@ const resetConfirmScreen = document.querySelector('#reset-library-modal');
 let library = [];
 
 // Track and update stats for header table
-let stats = {
-    totalPages: 0,
-    pagesRead: 0,
-    totalBooks: 0,
-    booksRead: 0,
-    authors: [],
-    favAuthor: 'none',
+class stats{
 
-    refresh: function(){
+    constructor(){
+        this.totalPages = 0;
+        this.pagesRead = 0;
+        this.totalBooks = 0;
+        this.booksRead = 0;
+        this.authors = [];
+        this.favAuthor = 'none';
+       }
 
+       refresh = () => {
         let statsBooks = document.querySelector('#stats-books');
         let statsBooksRead = document.querySelector('#stats-books-read');
         let statsPages = document.querySelector('#stats-pages');
@@ -27,77 +81,51 @@ let stats = {
         statsBooksRead.textContent = this.booksRead;
         statsPages.textContent = this.totalPages;
         statsPagesRead.textContent = this.pagesRead;
-    },
+       }
+
+       addAuthor = (author) => {
+            this.authors.push(author);
+            console.log(author);
+       }
+
+}
 
 
-    reset: function(){
-        this.totalPages = 0;
-        this.pagesRead = 0;
-        this.totalBooks = 0;
-        this.booksRead = 0;
-        this.authors = [];
+
+
+
+// Class constructor for book
+class Book{
+    
+    constructor(title, author, pages, type, hasRead){
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.type = type;
+        this.hasRead = hasRead
     }
 
-}
 
-// Create constructor for book
-function Book(title, author, pages, type, hasRead) {
-    this.title = title;
-    this.author = author;
-    this.pages = parseInt(pages);
-    this.type = type;
-    this.hasRead = hasRead;
+
 }
 
 
-function addBookToLibrary(book){
-    
-    // Update stats
-    stats.totalBooks += 1;
-    stats.totalPages += book.pages;
-    if (book.hasRead){
-        stats.pagesRead += book.pages;
-        stats.booksRead += 1;
-    } 
-    stats.authors.push(book.author);
-    stats.refresh();
 
-
-    library.push(book);
-}
-
-function removeBookFromLibrary(index){
-    
-    // Update stats
-    stats.totalBooks -= 1;
-    stats.totalPages -= parseInt(library[index].pages);
-    if (library[index].hasRead){
-        stats.pagesRead -= parseInt(library[index].pages);
-        stats.booksRead -= 1;
-    } 
-    stats.authors.splice(`'${library[index].pages}'`, 1)
-    stats.refresh(); 
-    
-    // Remove book from library array
-    library.splice(index, 1)
-}
 
 // Clear library array and DOMs to prepare for screen refresh
 // runs on every book deletion
-function clearLibrary(){
-    
-    resetConfirmScreen.style.display = 'none';
-    const bookstoDelete = document.querySelectorAll('.book');
-    bookstoDelete.forEach(book => book.remove());
-    
-}
+
 
 //////// Test books ///////////////////////////////
 const Fellowship = new Book("Fellowship of the Ring", "J.R.R. Tolkien", 423, "Fantasy", false);
 const OryxCrake = new Book("Oryx and Crake", "Margaret Atwood", 400, "Sci-fi", true);
 
-addBookToLibrary(OryxCrake);
-addBookToLibrary(Fellowship);
+
+Library = new Library();
+stats = new stats();
+
+Library.addBookToLibrary(OryxCrake);
+Library.addBookToLibrary(Fellowship);
 /////////////////////////////////////////////////////
 
 
@@ -173,24 +201,7 @@ function displayBook(libraryIndex)
 }
 
 // Toggles book read status for card
-function setBookReadStatus(button, haveRead){
-    
-    const index = getParentWithClass(button, 'book').getAttribute('data-library-index')
-    library[index].hasRead = haveRead;
-   
-    if (haveRead){
-        button.classList.add('hasread')
-        stats.booksRead += 1;
-        stats.pagesRead += library[index].pages;
-     }
-     else{
-         button.classList.remove('hasread');
-         stats.booksRead -= 1;
-         stats.pagesRead -= library[index].pages;
-    
-        }
-    stats.refresh();
-}
+
 
 // Using object to attach book marked for deletion for deletion prompt
 // First button will store book in this object, second button will call deleteBook method on it
@@ -200,7 +211,7 @@ let deleteScreen = {
 
     deleteBook(){
         this.currentBook.remove();
-        removeBookFromLibrary(this.currentBook.getAttribute('data-library-index'));
+        Library.removeBookFromLibrary(this.currentBook.getAttribute('data-library-index'));
         clearLibrary();
         displayLibrary();
     }
@@ -277,7 +288,7 @@ const resetButtonConfirm = document.querySelector('#confirm-reset');
 resetButtonConfirm.addEventListener('click',() => {
     stats.reset();
     stats.refresh();
-    clearLibrary();
+    Library.clearLibrary();
     library = [];
 });
 const resetButtonCancel = document.querySelector('#cancel-reset');
