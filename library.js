@@ -89,6 +89,7 @@ function clearLibrary(){
     resetConfirmScreen.style.display = 'none';
     const bookstoDelete = document.querySelectorAll('.book');
     bookstoDelete.forEach(book => book.remove());
+    
 }
 
 //////// Test books ///////////////////////////////
@@ -277,6 +278,7 @@ resetButtonConfirm.addEventListener('click',() => {
     stats.reset();
     stats.refresh();
     clearLibrary();
+    library = [];
 });
 const resetButtonCancel = document.querySelector('#cancel-reset');
 resetButtonCancel.addEventListener('click', () => resetConfirmScreen.style.display = "none");
